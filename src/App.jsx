@@ -31,6 +31,37 @@ function App() {
 
   const filteredRecipes = recipes.filter((recipe)=> recipe.ingredients.toLowerCase().includes(search.toLowerCase()))
 
+  const handleDelete = async (id) => {
+    const { error } = await supabase.from("recipes").delete().eq("id", id) // match the id
+    
+    if (error) {
+      console.error(error)
+    } else {
+      //removes from render
+      setRecipes((prev)=>prev.filter((recipe)=>recipe.id !==id))
+    }
+  
+  }
+const handleUpdate = async (id, updatedFields) => {
+
+  const { data, error } = await supabase
+    .from("recipes")
+    .update(updatedFields) //pass in name and ingredients
+    .eq("id", id)
+    .select();
+
+  if (error) {
+    console.error("Error updating recipe:", error.message);
+  } else if (data) {
+    // replace data without new useEffect render
+    setRecipes((prev) =>
+      prev.map((recipe) => (recipe.id === id ? data[0] : recipe)),
+    );
+  }
+};
+
+    
+
   return (
     <div className="app-container">
       <h1>Recipe List</h1>
@@ -52,7 +83,7 @@ function App() {
         )}
       </div>
 
-      <RecipeTable recipes={filteredRecipes} />
+      <RecipeTable recipes={filteredRecipes} onDelete={handleDelete} onUpdate={handleUpdate} />
       <hr />
       <RecipeForm addRecipe={addRecipe} />
     </div>
