@@ -1,5 +1,4 @@
-This is a simple recipe list app that pulls from a simple table of recipes with just the title and ingredients. The table can be read and recipes can be added to it. 
-You can filter recipes by ingredients.
+This is a simple recipe list app that pulls from a simple table of recipes with just the title and ingredients. The table can be read and recipes can be added to it. A user can also filter recipes by ingredients.
 
 
 To run, use the .env with this info: 
@@ -9,6 +8,10 @@ VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_4RDl3tq71JUpnXL7p6y_2w_-MdAC2_i
 
 
 and npm run dev to run on a local host
+
+
+
+SQL and css by Google Gemini.
 
 SQL to create base recipe list: 
 
